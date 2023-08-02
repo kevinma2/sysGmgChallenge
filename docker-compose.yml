@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  <your-network>:
+    driver: bridge
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: on-failure
+    environment:
+      - MONGODB_DATABASE="<your-db>"
+    ports:
+      - "PORT:PORT"
+    volumes:
+      - <your-volume>:/data/db
+    networks:
+      - <your-network>
+
+volumes:
+  <your-volume>:
+    external: true
