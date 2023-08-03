@@ -42,23 +42,37 @@ export class RoundService implements IRoundService{
     }
 
     async findRounds(idUser: string, filter: FindFilterType): Promise<RoundsListDto[]> {
-        const rounds = await this.roundModel.find({
-            idUser: idUser,
-            winner: filter === FindFilterType.WIN ? true : false,
-        });
-        const roundsListDto: RoundsListDto[] = [];
         
+
+        const rounds = await this.roundModel.find(this.getFindFilters(idUser, filter));
+
+        const roundsListDto: RoundsListDto[] = [];
         rounds.forEach(round => {
-            roundsListDto.push({
-                idRound: round._id.toString(),
-                idUser: round.idUser,
-                betValue: round.betValue,
-                winValue: round.winValue,
-                numberSequence: round.numberSequence,
-                drawnSequence: round.drawnSequence,
-                winner: round.winner,          
-            })
-        });	
+            roundsListDto.push(this.buildRoundResultDto(round))
+        });
+
         return roundsListDto;
+    }
+
+    private getFindFilters(idUser: string, filter: FindFilterType): import("mongoose").FilterQuery<RoundEntity> {
+        if(filter === FindFilterType.ALL)
+            return { idUser: idUser };
+        
+        return {
+            idUser: idUser,
+            winner: filter === FindFilterType.WIN,
+        };
+    }
+
+    private buildRoundResultDto(round): RoundsListDto {
+        return {
+            idRound: round._id.toString(),
+            idUser: round.idUser,
+            betValue: round.betValue,
+            winValue: round.winValue,
+            numberSequence: round.numberSequence,
+            drawnSequence: round.drawnSequence,
+            winner: round.winner,
+        };
     }
 }
