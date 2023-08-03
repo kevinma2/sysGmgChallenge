@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SchemaTypes } from 'mongoose';
 import { IRoundEntity } from '../types/IRoundEntity';
+import { Document } from 'mongoose';
 
 @Schema()
-export class RoundEntity implements IRoundEntity {
+export class RoundEntity implements IRoundEntity  {
 
   @Prop()
   idUser: string;
@@ -18,7 +18,7 @@ export class RoundEntity implements IRoundEntity {
   winValue: number;
 
   @Prop()
-  betSequence: number[];
+  numberSequence: number[];
 
   @Prop()
   drawnSequence: number[];
@@ -27,4 +27,4 @@ export class RoundEntity implements IRoundEntity {
   createdAt: Date;
 }
 
-export const TaskSchema = SchemaFactory.createForClass(RoundEntity);
+export const RoundSchema = SchemaFactory.createForClass(RoundEntity);

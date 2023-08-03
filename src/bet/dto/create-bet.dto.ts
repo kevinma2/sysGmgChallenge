@@ -1,5 +1,5 @@
 export class CreateBetDto{
-    idUser: number;
+    idUser: string;
     betValue: number;
-    betSequence: number[];
+    numberSequence: number[];
 }

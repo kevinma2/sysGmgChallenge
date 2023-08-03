@@ -3,6 +3,7 @@ export class RoundsListDto{
     idUser: string;
     betValue: number;
     winValue: number;
-    betSequence: number[];
+    numberSequence: number[];
     drawnSequence: number[];
+    winner: boolean;
 }

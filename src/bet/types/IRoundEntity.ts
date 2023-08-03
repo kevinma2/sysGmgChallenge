@@ -3,7 +3,7 @@ export interface IRoundEntity{
   betValue: number;
   winner: boolean;
   winValue: number;
-  betSequence: number[];
+  numberSequence: number[];
   drawnSequence: number[];
   createdAt: Date;
 }
