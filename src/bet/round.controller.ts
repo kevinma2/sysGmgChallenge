@@ -1,5 +1,5 @@
 import { BetResponseDto } from './dto/response/bet-response.dto';
-import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { CreateBetDto } from "./dto/create-bet.dto";
 import { RoundService } from './service/round.service';
 import { RoundsListDto } from './dto/response/rounds-list.dto';
@@ -12,11 +12,19 @@ export class RoundController{
     
     @Post()
     async bet(@Body() createBetDto: CreateBetDto): Promise<BetResponseDto>{
-        return await this.roundService.bet(createBetDto);
+        try{
+            return await this.roundService.bet(createBetDto);
+        }catch(error){
+            throw new BadRequestException(error.message);
+        }
     }
 
     @Get() 
     async listRounds(@Query('idUser') idUser: string, @Query('filter') filter: FindFilterType): Promise<RoundsListDto[]>{
-        return await this.roundService.findRounds(idUser, filter);
+        try{
+            return await this.roundService.findRounds(idUser, filter);
+        }catch(error){
+            throw new BadRequestException(error.message);
+        }
     }
 }
