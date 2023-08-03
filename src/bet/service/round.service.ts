@@ -1,15 +1,15 @@
-import { BetCheckerService } from './bet-checker.service';
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { RoundEntity } from "../entity/round.entity";
-import { Model } from "mongoose";
-import { IRoundService } from "../types/IRoundService";
-import { BetResponseDto } from "../dto/response/bet-response.dto";
-import { RoundsListDto } from "../dto/response/rounds-list.dto";
-import { GenerateNumbersService } from "./generate-numbers.service";
-import { CreateBetDto } from "../dto/create-bet.dto";
-import { FindFilterType } from "../enum/find-filter-type.enum";
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
+import { CreateBetDto } from '../dto/create-bet.dto';
+import { BetResponseDto } from '../dto/response/bet-response.dto';
+import { RoundsListDto } from '../dto/response/rounds-list.dto';
+import { RoundEntity } from '../entity/round.entity';
+import { FindFilterType } from '../enum/find-filter-type.enum';
 import { BetResultModel } from '../model/bet-result.model';
+import { IRoundService } from '../types/IRoundService';
+import { BetCheckerService } from './bet-checker.service';
 
 @Injectable()
 export class RoundService implements IRoundService{
@@ -19,7 +19,6 @@ export class RoundService implements IRoundService{
 
     constructor(readonly betCheckerService: BetCheckerService){}
     async bet(createBetDto: CreateBetDto): Promise<BetResponseDto> {
-        
         const betResult: BetResultModel = this.betCheckerService.checkBetResult(createBetDto.numberSequence, createBetDto.betValue);
 
         const roundEntity: RoundEntity = {
@@ -42,8 +41,6 @@ export class RoundService implements IRoundService{
     }
 
     async findRounds(idUser: string, filter: FindFilterType): Promise<RoundsListDto[]> {
-        
-
         const rounds = await this.roundModel.find(this.getFindFilters(idUser, filter));
 
         const roundsListDto: RoundsListDto[] = [];

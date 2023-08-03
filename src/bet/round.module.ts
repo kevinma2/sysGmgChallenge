@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { RoundEntity, RoundSchema } from './entity/round.entity';
-import { RoundService } from './service/round.service';
-import { GenerateNumbersService } from './service/generate-numbers.service';
 import { RoundController } from './round.controller';
 import { BetCheckerService } from './service/bet-checker.service';
+import { GenerateNumbersService } from './service/generate-numbers.service';
+import { RoundService } from './service/round.service';
 
 
 @Module({

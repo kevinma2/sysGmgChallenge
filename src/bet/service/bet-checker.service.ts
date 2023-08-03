@@ -1,14 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { RoundEntity } from "../entity/round.entity";
-import { Model } from "mongoose";
-import { IRoundService } from "../types/IRoundService";
-import { BetResponseDto } from "../dto/response/bet-response.dto";
-import { RoundsListDto } from "../dto/response/rounds-list.dto";
-import { GenerateNumbersService } from "./generate-numbers.service";
-import { CreateBetDto } from "../dto/create-bet.dto";
-import { FindFilterType } from "../enum/find-filter-type.enum";
-import { BetResultModel } from "../model/bet-result.model";
+import { Injectable } from '@nestjs/common';
+
+import { BetResultModel } from '../model/bet-result.model';
+import { GenerateNumbersService } from './generate-numbers.service';
 
 @Injectable()
 export class BetCheckerService{
